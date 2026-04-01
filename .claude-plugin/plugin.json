@@ -1,0 +1,11 @@
+{
+  "name": "init-deep",
+  "version": "1.0.0",
+  "description": "Deep codebase analysis and multi-agent documentation generator (AGENTS.md, CLAUDE.md, GEMINI.md + 4 more formats)",
+  "author": {
+    "name": "mzored"
+  },
+  "repository": "https://github.com/MZored/init-deep",
+  "license": "MIT",
+  "skills": ["./skills/"]
+}
