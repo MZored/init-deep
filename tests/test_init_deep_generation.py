@@ -55,5 +55,28 @@ class GeneratedArtifactTests(unittest.TestCase):
         self.assertNotIn('"**/*"', rule)
 
 
+class NativeCommandSurfaceTests(unittest.TestCase):
+    def test_gemini_output_is_toml_command_file(self) -> None:
+        import tomllib
+
+        source = load_canonical_source(ROOT / "source/init-deep/canonical.md")
+        outputs = render_distribution(source)
+        command = outputs["adapters/gemini/commands/init-deep.toml"]
+        parsed = tomllib.loads(command)
+        self.assertTrue(command.startswith('description = '))
+        self.assertIn("prompt", parsed)
+        self.assertIn(
+            "Use this command only when the user explicitly asks",
+            parsed["prompt"],
+        )
+
+    def test_copilot_output_is_prompt_file(self) -> None:
+        source = load_canonical_source(ROOT / "source/init-deep/canonical.md")
+        outputs = render_distribution(source)
+        prompt = outputs["adapters/copilot/prompts/init-deep.prompt.md"]
+        self.assertTrue(prompt.startswith("# init-deep"))
+        self.assertIn("Run this prompt only when the user explicitly asks", prompt)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -9,6 +9,10 @@ def _body(source: CanonicalSource) -> str:
     return source.raw.rstrip() + "\n"
 
 
+def _toml_string(value: str) -> str:
+    return value.rstrip() + "\n"
+
+
 def render_skill(source: CanonicalSource) -> str:
     return (
         "---\n"
@@ -58,6 +62,28 @@ def render_copilot_instructions() -> str:
     )
 
 
+def render_copilot_prompt(source: CanonicalSource) -> str:
+    return (
+        "# init-deep\n\n"
+        "Run this prompt only when the user explicitly asks for a deep repository initialization pass.\n\n"
+        + _body(source)
+    )
+
+
+def render_gemini_command(source: CanonicalSource) -> str:
+    prompt = (
+        "# /init-deep\n\n"
+        "Use this command only when the user explicitly asks to initialize or refresh project agent documentation.\n\n"
+        + _body(source)
+    )
+    return (
+        'description = "Deep project initialization for multi-agent documentation"\n\n'
+        'prompt = """\n'
+        + _toml_string(prompt)
+        + '"""\n'
+    )
+
+
 def render_windsurf_output(source: CanonicalSource) -> str:
     return _body(source)
 
@@ -72,8 +98,8 @@ def render_distribution(source: CanonicalSource) -> dict[str, str]:
         "adapters/cursor.mdc": render_cursor_rule(),
         "adapters/cursor/commands/init-deep.md": render_cursor_command(source),
         "adapters/copilot.md": render_copilot_instructions(),
-        "adapters/gemini/commands/init-deep.toml": 'description = "init-deep"\n\nprompt = """\n' + _body(source) + '"""\n',
-        "adapters/copilot/prompts/init-deep.prompt.md": "# init-deep\n\n" + _body(source),
+        "adapters/copilot/prompts/init-deep.prompt.md": render_copilot_prompt(source),
+        "adapters/gemini/commands/init-deep.toml": render_gemini_command(source),
         "adapters/windsurf/init-deep.md": render_windsurf_output(source),
         "adapters/cline/init-deep.md": render_cline_output(source),
     }
