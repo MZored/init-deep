@@ -1,9 +1,6 @@
----
-name: init-deep
-description: Deeply analyze a codebase and generate multi-agent project documentation (AGENTS.md + CLAUDE.md + GEMINI.md + scoped docs). Only invoke when user explicitly types /init-deep.
-argument-hint: "[--create-new] [--max-depth=N] [--only=claude,codex] [--skip-cursor] [--dry-run] [--doctor] [--sync-check]"
-disable-model-invocation: true
----
+# /init-deep
+
+Use this command only when the user explicitly asks to initialize or refresh project agent documentation.
 
 # /init-deep — Deep Project Initialization
 
