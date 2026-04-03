@@ -1,1 +1,8 @@
-adapters/* linguist-generated=true
+skills/init-deep/SKILL.md linguist-generated=true
+adapters/cursor.mdc linguist-generated=true
+adapters/cursor/commands/init-deep.md linguist-generated=true
+adapters/copilot.md linguist-generated=true
+adapters/copilot/prompts/init-deep.prompt.md linguist-generated=true
+adapters/gemini/commands/init-deep.toml linguist-generated=true
+adapters/windsurf/init-deep.md linguist-generated=true
+adapters/cline/init-deep.md linguist-generated=true

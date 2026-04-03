@@ -1,14 +1,14 @@
 {
   "name": "init-deep",
-  "description": "Deep codebase analysis and multi-agent documentation generator for 7 AI coding platforms",
+  "description": "Canonical init-deep prompt with generated platform-native adapters for 7 AI coding platforms",
   "owner": {
     "name": "mzored"
   },
   "plugins": [
     {
       "name": "init-deep",
-      "description": "Deep codebase analysis and multi-agent documentation generator (AGENTS.md, CLAUDE.md, GEMINI.md + 4 more formats)",
-      "version": "1.0.0",
+      "description": "Canonical init-deep prompt with generated platform-native adapters for Claude, Codex, Cursor, Gemini, Copilot, Windsurf, and Cline",
+      "version": "1.1.0",
       "source": "./",
       "author": {
         "name": "mzored"
