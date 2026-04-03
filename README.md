@@ -23,9 +23,18 @@ Deep codebase analysis and multi-agent documentation generator. The checked-in a
 
 ### Claude Code
 
+From the terminal:
+
 ```bash
 claude plugin marketplace add MZored/init-deep
 claude plugin install init-deep
+```
+
+Or from an interactive Claude Code session:
+
+```text
+/plugin marketplace add MZored/init-deep
+/plugin install init-deep
 ```
 
 ### OpenAI Codex CLI
