@@ -1,4 +1,8 @@
+import json
 from pathlib import Path
+import re
+import shutil
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,6 +73,40 @@ class RepoMetadataTests(unittest.TestCase):
     def test_codeowners_routes_reviews_to_the_repository_owner(self) -> None:
         text = (ROOT / ".github/CODEOWNERS").read_text(encoding="utf-8")
         self.assertIn("* @MZored", text)
+
+    def test_marketplace_manifest_uses_supported_top_level_schema(self) -> None:
+        marketplace = json.loads(
+            (ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8")
+        )
+        self.assertNotIn("description", marketplace)
+        self.assertIn("metadata", marketplace)
+        self.assertEqual(
+            marketplace["metadata"]["description"],
+            "Canonical init-deep prompt with generated platform-native adapters for 7 AI coding platforms",
+        )
+
+    def test_plugin_and_marketplace_versions_are_synced_semver(self) -> None:
+        plugin = json.loads(
+            (ROOT / ".claude-plugin/plugin.json").read_text(encoding="utf-8")
+        )
+        marketplace = json.loads(
+            (ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8")
+        )
+        plugin_entry = marketplace["plugins"][0]
+        self.assertEqual(plugin["name"], plugin_entry["name"])
+        self.assertEqual(plugin["version"], plugin_entry["version"])
+        self.assertRegex(plugin["version"], re.compile(r"^\d+\.\d+\.\d+$"))
+
+    @unittest.skipUnless(shutil.which("claude"), "claude CLI not available")
+    def test_claude_cli_validates_plugin_distribution_when_available(self) -> None:
+        result = subprocess.run(
+            ["claude", "plugin", "validate", "."],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

@@ -1,14 +1,16 @@
 {
   "name": "init-deep",
-  "description": "Canonical init-deep prompt with generated platform-native adapters for 7 AI coding platforms",
   "owner": {
     "name": "mzored"
+  },
+  "metadata": {
+    "description": "Canonical init-deep prompt with generated platform-native adapters for 7 AI coding platforms"
   },
   "plugins": [
     {
       "name": "init-deep",
       "description": "Canonical init-deep prompt with generated platform-native adapters for Claude, Codex, Cursor, Gemini, Copilot, Windsurf, and Cline",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "source": "./",
       "author": {
         "name": "mzored"
